@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import api from '../api';
 import axios from 'axios';
-import { ACCESS_TOKEN ,REFRESH_TOKEN } from '../constants';
 import Navbar from './Navbar';
 
 function Register() {

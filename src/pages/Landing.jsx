@@ -4,10 +4,9 @@ import Spinner from '../components/Spinner'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import api from '../api';
 import axios from 'axios';
 import Navbar from './Navbar';
-import { ACCESS_TOKEN ,REFRESH_TOKEN } from '../constants';
+import { ACCESS_TOKEN } from '../constants';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function Landing() {
@@ -45,13 +44,14 @@ function Landing() {
 
         try {
             const res = await axios.post('http://localhost:5000/users/login', {
-                username: nameMail,  // Change this according to what your API expects
+                email: nameMail,  // Change this according to what your API expects
                 password: Password
             });
 
             if (res && res.data) {  // Checking if response contains data
-                localStorage.setItem(ACCESS_TOKEN, res.data.access);
-                localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+                localStorage.setItem(ACCESS_TOKEN, res.data.token);
+                localStorage.setItem("USER",JSON.stringify(res.data.user))
+                console.log(res.data.user)
                 navigate('/Home');
             } else {
                 triggerNotification('Failed to login');
@@ -59,7 +59,10 @@ function Landing() {
         } catch (e) {
             if(e.status === 401){
                 triggerNotification(`Unauthorized please register`);
-            }else{
+            }else if(e.status == 400){
+                triggerNotification(`not found`);
+            }
+            else{
                 triggerNotification(`Error ${e.message} while logging in`);
             }
         } finally {
@@ -79,7 +82,7 @@ function Landing() {
                 />
             )}
             <div className="">
-        <div className="flex justify-center border-l border-b p-5 mt-20 bg-white border-blue-300  top-24  rounded-md shadow-xl w-full sm:w-[350px] h-[400px]  ">
+        <div className="flex justify-center border-l border-b p-5 mt-20 bg-white border-blue-300  top-24  rounded-md shadow-xl w-full sm:w-[380px] h-[400px]  ">
             <div className="">
             <div className=" mt-5 text-center mb-10 text-[20px] text-blue-400 font-extrabold">Login</div>
             

@@ -1,73 +1,152 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
-import logo from '../assets/logo2.png';
-import schedule from '../assets/schedule-icon-35779.png';
-import right from '../assets/right-arrow-icon-7589.png';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
-
+import log from "../assets/log.png";
+import icon1 from "../assets/i1.png";
+import icon2 from "../assets/i2.png";
+import icon3 from "../assets/i3.png";
+import icon4 from "../assets/i4.png";
+import icon5 from "../assets/i5.png";
+import icon6 from "../assets/i6.png";
+import user from "../assets/user1.png";
+import { ACCESS_TOKEN } from "../constants";  // Ensure this constant is defined and imported
 
 const Layout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const navigate =  useNavigate()
+  const navigate = useNavigate();
+  const[users,setUsers] = useState([]);
 
-  const handleChange = (e) => {
-    setSearchText(e.target.value);
+
+  // Check for token in localStorage
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+
+    if (currentHour < 12 || currentHour > 9) {
+      return 'Good Afternoon!';
+    } else if (currentHour > 12) {
+      return 'Good Evening!';
+    } else {
+      return 'Good Evening!';
+    }
   };
 
-  const clearSearch = () => {
-    setSearchText('');
-  };
+  useEffect(() => {
+    getGreeting();
+    console.log(new Date().getHours(),"now hours")
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    const user = localStorage.getItem("USER");
+    if (user){
+      try {
+        const parsedUser = JSON.parse(user);
+        setUsers(parsedUser);
+      } catch (e) {
+        console.error("Error parsing user data:", e);
+        setUsers(null); // Clear the user state if parsing fails
+      }
+    }
+    if (!token || !user) {
+      navigate('/');
+    }
+  }, [navigate]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-const handleLogout = ()=>{
-    localStorage.clear()
-    navigate('/')
-}
 
-
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/');
+  };
 
   return (
     <div className="flex h-screen">
-      <div className={`fixed z-20 h-full   bg-gray-800 shadow-sm text-white flex flex-col pt-10 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 md:w-36`}>
-        <div className="flex justify-center font-bold text-[18px]">
-          <div className="w-[10000px] flex  text-blue-500 h-[60px] bg-gray-800 relative top-[-40px]">
-            <div className="ml-5 mt-3 flex">
-              <h1 className="text-red-500 mt-1 mr-2 font-bold flex justify-center text-[15px]"><span className='text-white mr-1'>Django</span> Master</h1>
+      <div className="p-3">
+        <div className={`fixed z-20 h-full rounded-md bg-blue-100 shadow-sm text-white flex flex-col pt-10 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-[200px]'} md:relative md:translate-x-0 w-[200px]`}>
+          <div className="flex justify-center font-bold text-[18px]">
+            <div className="w-[10000px] flex text-black text-[13px] h-[60px] rounded-t-md bg-blue-100 relative top-[-40px]">
+              <div className="ml-10 mt-3 flex">
+                <img src={log} alt="" className="w-7 h-7 mr-1" />
+                <p className="mt-1">MyStock</p>
+              </div>
             </div>
           </div>
-        </div>
-        <nav className="flex-1 px-2 py-1 space-y-1">
-          <NavLink to="/Home" className="flex button text-[9px] text-red-500 items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 hover:bg-black">
-          <img src={schedule} className="mr-3 h-5 w-5" alt="Schedule" />
-            Home
-          </NavLink>
-        </nav>
-        <div className="flex pl-5 mb-10 cursor-pointer">
-          <div onClick={handleLogout} className="text-[12px]  pr-3 font-semibold hover:text-black transition-colors duration-700 text-red-500">
-            Log <span className='text-white'>Out</span>
-          </div>
-          <div>
-            <img src={right} className="mr-3 h-5 w-5" alt="Logout" />
-          </div>
+          <nav className="flex-1 px-2 py-1 space-y-1">
+            <NavLink
+              to="/Home"
+              className={({ isActive }) =>
+                `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
+                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-400 hover:bg-gray-200'
+                }`
+              }
+            >
+              <img src={icon2} className="w-5 h-5 mr-2" alt="" />
+              <p>Dashboard</p>
+            </NavLink>
+            <NavLink
+              to="/Stock"
+              className={({ isActive }) =>
+                `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
+                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
+                }`
+              }
+            >
+              <img src={icon4} className="w-5 h-5 mr-2" alt="" />
+              <p>Stock</p>
+            </NavLink>
+            <NavLink
+              to="/Entery"
+              className={({ isActive }) =>
+                `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
+                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
+                }`
+              }
+            >
+              <img src={icon3} className="w-5 h-5 mr-2" alt="" />
+              <p>Entery</p>
+            </NavLink>
+            <NavLink
+              to="/Dispached"
+              className={({ isActive }) =>
+                `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
+                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
+                }`
+              }
+            >
+              <img src={icon5} className="w-5 h-5 mr-2" alt="" />
+              <p>Dispatch</p>
+            </NavLink>
+            <NavLink
+              to="/Report"
+              className={({ isActive }) =>
+                `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
+                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
+                }`
+              }
+            >
+              <img src={icon6} className="w-5 h-5 mr-2" alt="" />
+              <p>Report</p>
+            </NavLink>
+          </nav>
+          <div className="flex pl-5 mb-10 cursor-pointer"></div>
         </div>
       </div>
       <div className="flex-1 flex flex-col">
-        <header className="bg-white shadow-sm shadow-gray-100  p-9 fixed w-full z-50 flex justify-evenly items-center">
-  
-    <div className="flex justify-end items-center">
-         
+        <header className="p-2 mt-4 fixed w-full z-50 flex sm:justify-between justify-around">
+          <div>
+            <div className="">
+            <h2 className="hidden sm:block text-[16px] text-gray-600 font-bold">Welcome <span className='text-blue-500'>{users.name}</span></h2>
+            <h1 className="text-[12px] text-gray-300 font-semibold">{getGreeting()}</h1>
+            </div>
+          </div>
+          <div className="sm:mr-[300px]">
+            <img src={user} className='w-10 cursor-pointer  h-10' alt="" />  
           </div>
           <button className="md:hidden text-blue-400" onClick={toggleSidebar}>
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </header>
-        <main className="flex-1 p-6 overflow-auto   mt-16 scrollbar-custom">
+        <main className="flex-1 p-6 overflow-auto mt-16 scrollbar-custom">
           {children}
         </main>
       </div>

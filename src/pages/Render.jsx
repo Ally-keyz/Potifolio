@@ -3,6 +3,9 @@ import { useNavigation } from 'react-router-dom';
 import render from "../assets/logo2.png";
 import Landing from './Landing';
 
+
+
+
 function Render() {
     const [count, setCount] = useState(0);
     const navigation = useNavigation();
@@ -10,7 +13,7 @@ function Render() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setCount(1);
-        }, 2000); // 1000ms = 1 second
+        }, 2000); // 1000ms = 2 sec
 
         return () => clearTimeout(timer);
     }, []);

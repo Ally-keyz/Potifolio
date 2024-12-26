@@ -25,7 +25,7 @@ const router = createBrowserRouter(
       <Route path='/Register' element={<Register />} />
       <Route path='/Turtorials' element={<Turtorials />} />
       
-      <Route path="/Home" element={<ProtectedRoute><Content /></ProtectedRoute> }>
+      <Route path="/Home" element={<Content />}>
         <Route path='' element={<Home />} />   
       </Route>
     </Route>
