@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+  @layer utilities {
+    .bouncing-ball {
+      @apply w-10 h-10 bg-gray-500 rounded-full relative;
+      animation: bounce 2s infinite ease-in-out;
+    }
+  
+    .bouncing-ball::after {
+      content: '';
+      @apply w-10 h-[10px] bg-gray-500 rounded-full absolute;
+      bottom: -5px;
+      left: 0;
+      transform: scaleX(1);
+      animation: squish 2s infinite ease-in-out;
+    }
+  
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+        animation-timing-function: ease-in;
+      }
+      50% {
+        transform: translateY(150px);
+        animation-timing-function: ease-out;
+      }
+    }
+  
+    @keyframes squish {
+      0%, 100% {
+        transform: scaleX(1);
+      }
+      50% {
+        transform: scaleX(1.5);
+      }
+    }
+  }
+    
