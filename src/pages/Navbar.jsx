@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import render from "../assets/logo2.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,51 +72,12 @@ const Navbar = () => {
  }, [])
 
   return (
-    <nav className={`${scrolled ? 'w-full   fixed z-50 transition-all duration-700 ease-in-out shadow-sm  bg-custom-gradient bg-black   ':'w-full   fixed z-50 transition-all duration-700 ease-in-out shadow-sm  bg-custom-gradient bg-black '}`}>
-      <div className="w-full flex items-center h-16 justify-between sm:justify-around px-4">
-        <div className="flex items-center ">
-          <h1 className="text-white font-semibold  text-lg">Django <span className='text-red-500'>Mastering</span></h1>
-        </div>
-        <div className="hidden md:flex items-center space-x-4">
-            <NavLink to={'/'} className={({isActive})=> isActive ? 'text-red-400 text-[13px] underline underline-offset-8':'text-white text-[13px]  transition-colors duration-300  hover:underline hover:underline-offset-8' } >Home</NavLink>
-            <NavLink to={'/Register'} className={({isActive})=> isActive ? 'text-red-400  text-[13px] underline underline-offset-8':'text-white text-[13px]  transition-colors duration-300  hover:underline hover:underline-offset-8' } >Register</NavLink>
-            <NavLink to={'/Projects'} className={({isActive})=> isActive ? 'text-red-400  text-[13px] underline underline-offset-8':'text-white text-[13px]  transition-colors duration-300  hover:underline hover:underline-offset-8' } >Projects</NavLink>
-            <NavLink to={'/Turtorials'} className={({isActive})=> isActive ? 'text-red-400  text-[13px] underline underline-offset-8':'text-white text-[13px]  transition-colors duration-300  hover:underline hover:underline-offset-8' } >Turtorials</NavLink>
-            
-      
-        </div>
-        <div className="hidden md:flex items-center space-x-4">
-
-          <a href="#help" className="text-white hover:text-blue-500 transition-colors duration-300 hover:underline hover:underline-offset-8" style={{fontSize:14}}>Help</a>
-        </div>
-        <div className="flex md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            type="button"
-            className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-gray-700 focus:outline-none"
-          >
-            <span className="sr-only">Open main menu</span>
-            {!isOpen ? (
-              <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-            ) : (
-              <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            )}
-          </button>
+    <nav className={`${scrolled ? 'w-full   fixed z-50 transition-all duration-700 ease-in-out   bg-custom-gradient    ':'w-full   fixed z-50 transition-all duration-700 ease-in-out   bg-custom-gradient '}`}>
+      <div className="w-full  h-16   px-4">
+        <div className=" ">
+          <img src={render} alt="" className="w-[100px] h-[80px] mb-2" />
         </div>
       </div>
-
-      {isOpen && (
-        <div className="md:hidden bg-gray-500 px-2 pt-2 pb-3 space-y-1">
-          <a href="#home" className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Home</a>
-          <a href="#download" className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Download</a>
-          <a href="#about" className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">About</a>
-          <a href="#contact" className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Contact</a>
-        </div>
-      )}
     </nav>
   );
 };
