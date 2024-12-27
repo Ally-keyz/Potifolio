@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
+import Modal from '../components/Modal';
 import log from "../assets/log.png";
 import icon1 from "../assets/i1.png";
 import icon2 from "../assets/i2.png";
@@ -9,7 +10,8 @@ import icon4 from "../assets/i4.png";
 import icon5 from "../assets/i5.png";
 import icon6 from "../assets/i6.png";
 import user from "../assets/user1.png";
-import { ACCESS_TOKEN } from "../constants";  // Ensure this constant is defined and imported
+
+
 
 const Layout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +20,10 @@ const Layout = ({ children }) => {
   const[users,setUsers] = useState([]);
   const [greeting, setGreeting] = useState("");
   const [time, setTime] = useState("");
+  const [modelOpen ,setModelOpen] = useState(false)
+
+
+const closeModal2 = () => setModelOpen(false);
 
   useEffect(() => {
     const fetchTime = async () => {
@@ -169,7 +175,7 @@ const Layout = ({ children }) => {
             </div>
           </div>
           <div className="sm:mr-[300px]">
-            <img src={user} className='w-10 cursor-pointer  h-10' alt="" />  
+            <img src={user} onClick={()=>setModelOpen(true)} className='w-10 cursor-pointer  h-10' alt="" />  
           </div>
           <button className="md:hidden text-blue-400" onClick={toggleSidebar}>
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
@@ -179,6 +185,24 @@ const Layout = ({ children }) => {
           {children}
         </main>
       </div>
+      <Modal isOpen={modelOpen} onClose={closeModal2}>
+        <div className="p-5 sm:p-0 w-full sm:w-[400px] h-[300px] bg-white rounded-md">
+          <div className="flex justify-center p-4 w-full">
+          <img src={user} className='w-10 h-10' alt="" />
+          </div>
+          <div className="w-full flex justify-center p-5">
+            <div className="">
+          <p className='text-[15px] text-blue-500  font-bold'>Store manager: <span className='text-gray-500'>{users.name}</span></p>
+          <p className='text-[15px] text-blue-500  font-bold'>Branch: <span className='text-gray-500'>{users.wareHouse}</span></p>
+          </div>
+          </div>
+          <div className="w-full flex justify-center mt-1">
+            <div onClick={handleLogout} className="text-center  text-white bg-gradient-to-l from-blue-400 to-indigo-400 pt-1 mt-16    text-[13px] font-semibold rounded cursor-pointer     w-64 h-[28px] ">
+              Log Out
+            </div>
+          </div>
+              </div>
+        </Modal>
     </div>
   );
 };

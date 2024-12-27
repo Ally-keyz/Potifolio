@@ -3,6 +3,8 @@ import Spinner from '../components/Spinner';
 import Notification from '../components/Notification';
 import { ACCESS_TOKEN } from '../constants';
 import "../components/custom-scrollbar.css"
+import arrow from "../assets/arrow.png";
+import Modal from "../components/Modal.jsx"
 
 
 
@@ -15,8 +17,6 @@ const Home= () => {
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
-
-
 
 
   const triggerNotification = (message) => {
@@ -131,29 +131,167 @@ const handleSubmit = (event) => {
 
 
   // Fetch articles on component mount
-  useEffect(() => {
-    fetchArticles();
-  }, []);
+
 
   return (
     <div className=" scrollbar-custom  mx-auto mt-5">
            <div className="sm:flex justify-around w-full">
             <div className="sm:w-[450px] h-[320px] rounded-md border-gray-200 border shadow-md p-5">
             <div className="w-full h-[50px] border-b flex justify-around border-gray-300">
-              <p className='text-[15px] text-gray-600 font-bold'>Qurent Stock</p>
+              <p className='text-[15px] text-gray-600 font-bold'>Current Stock</p>
+              <div className="flex mt-[1px]">
+              <p className='text-[13px] text-blue-400 font-semibold cursor-pointer  mr-1'>View details</p>
+              <img src={arrow} className='w-5 h-5' alt="" />
+              </div>
             </div>
+            <div className="mt-2 flex rounded-md shadow-xl justify-center items-center w-full">
+    <table className="w-full  mt-5 text-center text-[12px] text-gray-800 border-collapse">
+      <thead>
+        <tr className="border-b  bg-blue-100 border-gray-300">
+          <th className="pb-2">Products name</th>
+          <th className="pb-2">Quantity</th>
+          <th className="pb-2">Entery Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+        <tr className="border-t border-gray-300">
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+        <tr className="border-t border-gray-300">
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
             </div>
-            <div className="sm:w-[450px] h-[320px] rounded-md border-gray-200 border shadow-md p-5">
-            <div className="w-full h-[50px] flex justify-around border-b border-gray-300">
-            <p className='text-[15px] text-gray-600 font-bold'>Fumugation card</p>
-            </div>
-            </div>
+            <div className="sm:w-[450px] h-[320px] rounded-md border-gray-200 border shadow-md p-5 flex flex-col items-center">
+  <div className="w-full h-[50px] flex justify-around border-b border-gray-300">
+    <p className="text-[15px] text-gray-600 font-bold">Fumigation card</p>
+    <div className="flex mt-[1px]">
+      <p className="text-[13px] text-blue-400 font-semibold mr-1 cursor-pointer">View details</p>
+      <img src={arrow} className="w-5 h-5" alt="" />
+    </div>
+  </div>
+  <div className="mt-2 flex rounded-md shadow-xl justify-center items-center w-full">
+    <table className="w-full  mt-5 text-center text-[12px] text-gray-800 border-collapse">
+      <thead>
+        <tr className="border-b  bg-blue-100 border-gray-300">
+          <th className="pb-2">Products name</th>
+          <th className="pb-2">Quantity</th>
+          <th className="pb-2">Date fumugated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+        <tr className="border-t border-gray-300">
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+        <tr className="border-t border-gray-300">
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
               
 
                  </div>
                  <div className="sm:flex justify-around w-full p-10">
-                  <div className="sm:w-[430px] h-[150px] rounded-md border-gray-200 border shadow-md p-5"></div>
-                  <div className="sm:w-[430px] h-[150px] rounded-md border-gray-200 border shadow-md p-5"></div>
+                  <div className="sm:w-[430px] h-[150px] rounded-md border-gray-200 border shadow-md p-3">
+                  <div className="w-full h-[20px] flex justify-around border-b border-gray-300">
+    <p className="text-[13px] text-gray-600 font-bold">Entered products</p>
+    <div className="flex mt-[1px]">
+      <p className="text-[13px] text-blue-400 font-semibold mr-1 cursor-pointer">View details</p>
+      <img src={arrow} className="w-5 h-5" alt="" />
+    </div>
+    
+  </div>
+  <div className="mt-2 flex rounded-md shadow-xl justify-center items-center w-full">
+    <table className="w-full  mt-2 text-center text-[12px] text-gray-800 border-collapse">
+      <thead>
+        <tr className="border-b  bg-blue-100 border-gray-300">
+          <th className="pb-2">Products name</th>
+          <th className="pb-2">Quantity</th>
+          <th className="pb-2">Date Entered</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+        <tr className="border-t border-gray-300">
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+        <tr className="border-t border-gray-300">
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+                  </div>
+                  <div className="sm:w-[430px] h-[150px] rounded-md border-gray-200 border shadow-md p-3">
+                  <div className="w-full h-[20px] flex justify-around border-b border-gray-300">
+    <p className="text-[13px] text-gray-600 font-bold">Dispatched products</p>
+    <div className="flex mt-[1px]">
+      <p className="text-[13px] text-blue-400 font-semibold mr-1 cursor-pointer">View details</p>
+      <img src={arrow} className="w-5 h-5" alt="" />
+    </div>
+    
+  </div>
+  <div className="mt-2 flex rounded-md shadow-xl justify-center items-center w-full">
+    <table className="w-full  mt-2 text-center text-[12px] text-gray-800 border-collapse">
+      <thead>
+        <tr className="border-b  bg-blue-100 border-gray-300">
+          <th className="pb-2">Products name</th>
+          <th className="pb-2">Quantity</th>
+          <th className="pb-2">Date Dispatched</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+        <tr className="border-t border-gray-300">
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+        <tr className="border-t border-gray-300">
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+          <td className="py-2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+                  </div>
                  </div>
 
         {/* Success or error message */}
@@ -166,7 +304,6 @@ const handleSubmit = (event) => {
             )}
       
    
-      {/* Display Articles */}
 
     </div>
   );
