@@ -16,24 +16,53 @@ const Layout = ({ children }) => {
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
   const[users,setUsers] = useState([]);
+  const [greeting, setGreeting] = useState("");
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const fetchTime = async () => {
+      try {
+        const response = await fetch("http://worldtimeapi.org/api/timezone/Africa/Kigali");
+        const data = await response.json();
+
+        // Parse the datetime string from the API
+        const date = new Date(data.datetime); // Creates a Date object
+        const hour = date.getUTCHours() + 2; // Adjust for Kigali timezone (UTC+2)
+
+        // Format the time to AM/PM
+        const formattedTime = date.toLocaleTimeString("en-US", {
+          timeZone: "Africa/Kigali",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        });
+
+        setTime(formattedTime);
+
+        // Set greeting based on the hour
+        if (hour >= 0 && hour < 12) {
+          setGreeting("Good Morning");
+        } else if (hour >= 12 && hour < 18) {
+          setGreeting("Good Afternoon");
+        } else {
+          setGreeting("Good Evening");
+        }
+      } catch (error) {
+        console.error("Failed to fetch time:", error);
+        setGreeting("Hello"); // Fallback greeting
+      }
+    };
+
+    fetchTime();
+  }, []);
 
 
   // Check for token in localStorage
-  const getGreeting = () => {
-    const currentHour = new Date().getHours();
 
-    if (currentHour < 12 || currentHour > 9) {
-      return 'Good Afternoon!';
-    } else if (currentHour > 12) {
-      return 'Good Evening!';
-    } else {
-      return 'Good Evening!';
-    }
-  };
 
   useEffect(() => {
-    getGreeting();
-    console.log(new Date().getHours(),"now hours")
+
     const token = localStorage.getItem("ACCESS_TOKEN");
     const user = localStorage.getItem("USER");
     if (user){
@@ -60,7 +89,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex  h-screen">
       <div className="p-3">
         <div className={`fixed z-20 h-full rounded-md bg-blue-100 shadow-sm text-white flex flex-col pt-10 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-[200px]'} md:relative md:translate-x-0 w-[200px]`}>
           <div className="flex justify-center font-bold text-[18px]">
@@ -136,7 +165,7 @@ const Layout = ({ children }) => {
           <div>
             <div className="">
             <h2 className="hidden sm:block text-[16px] text-gray-600 font-bold">Welcome <span className='text-blue-500'>{users.name}</span></h2>
-            <h1 className="text-[12px] text-gray-300 font-semibold">{getGreeting()}</h1>
+            <h1 className="text-[12px] hidden sm:block text-gray-300 font-semibold">{greeting}! </h1>
             </div>
           </div>
           <div className="sm:mr-[300px]">

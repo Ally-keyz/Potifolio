@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Spinner from '../components/Spinner';
 import Notification from '../components/Notification';
 import { ACCESS_TOKEN } from '../constants';
+import "../components/custom-scrollbar.css"
 
 
 
@@ -135,8 +136,25 @@ const handleSubmit = (event) => {
   }, []);
 
   return (
-    <div className="  ml-10 mx-auto mt-10">
+    <div className=" scrollbar-custom  mx-auto mt-5">
+           <div className="sm:flex justify-around w-full">
+            <div className="sm:w-[450px] h-[320px] rounded-md border-gray-200 border shadow-md p-5">
+            <div className="w-full h-[50px] border-b flex justify-around border-gray-300">
+              <p className='text-[15px] text-gray-600 font-bold'>Qurent Stock</p>
+            </div>
+            </div>
+            <div className="sm:w-[450px] h-[320px] rounded-md border-gray-200 border shadow-md p-5">
+            <div className="w-full h-[50px] flex justify-around border-b border-gray-300">
+            <p className='text-[15px] text-gray-600 font-bold'>Fumugation card</p>
+            </div>
+            </div>
+              
 
+                 </div>
+                 <div className="sm:flex justify-around w-full p-10">
+                  <div className="sm:w-[430px] h-[150px] rounded-md border-gray-200 border shadow-md p-5"></div>
+                  <div className="sm:w-[430px] h-[150px] rounded-md border-gray-200 border shadow-md p-5"></div>
+                 </div>
 
         {/* Success or error message */}
         {showNotification && (

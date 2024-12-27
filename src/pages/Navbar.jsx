@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import render from "../assets/logo2.png";
+import render from "../assets/log.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,10 +73,11 @@ const Navbar = () => {
 
   return (
     <nav className={`${scrolled ? 'w-full   fixed z-50 transition-all duration-700 ease-in-out   bg-custom-gradient    ':'w-full   fixed z-50 transition-all duration-700 ease-in-out   bg-custom-gradient '}`}>
-      <div className="w-full  h-16   px-4">
-        <div className=" ">
-          <img src={render} alt="" className="w-[100px] h-[80px] mb-2" />
-        </div>
+      <div className="">
+              <div className="ml-10 mt-3 flex">
+                <img src={render} alt="" className="w-7 h-7 mr-1" />
+                <p className=" font-bold text-[17px]">MyStock</p>
+              </div>
       </div>
     </nav>
   );

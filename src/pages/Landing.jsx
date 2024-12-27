@@ -49,7 +49,7 @@ function Landing() {
             });
 
             if (res && res.data) {  // Checking if response contains data
-                localStorage.setItem(ACCESS_TOKEN, res.data.token);
+                localStorage.setItem("ACCESS_TOKEN", res.data.token);
                 localStorage.setItem("USER",JSON.stringify(res.data.user))
                 console.log(res.data.user)
                 navigate('/Home');
@@ -71,8 +71,9 @@ function Landing() {
     };
   return (
     <>
+    
         <div className='sm:h-[585px] h-screen w-full flex sm:p-5 justify-center  bg-gray-50 '>
-        <Navbar />
+      
                     {/* Notification */}
                     {showNotification && (
                 <Notification
@@ -82,15 +83,15 @@ function Landing() {
                 />
             )}
             <div className="">
-        <div className="flex justify-center border-l border-b p-5 mt-20 bg-white border-blue-300  top-24  rounded-md shadow-xl w-full sm:w-[380px] h-[400px]  ">
+        <div className="flex justify-center border-l border-b p-5 mt-20 bg-white border-blue-300  top-24  rounded-md shadow-xl w-full sm:w-[440px] h-[410px]  ">
             <div className="">
-            <div className=" mt-5 text-center mb-10 text-[20px] text-blue-400 font-extrabold">Login</div>
+            <div className=" mt-5 text-center mb-10 text-[17px] text-blue-400 font-serif">MyStock</div>
             
             <input
         type="text"
         value={nameMail}
         onChange={(e) => setNameMail(e.target.value)}
-        className="block border-b  border-gray-400 w-full px-[25px] py-2 mb-8 text-[10px] text-gray-500 shadow-sm rounded-sm mt-2  focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        className="block border-b  border-gray-400 w-full sm:w-[320px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2  focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         placeholder="Email or name"
       />
     <div className="relative w-full">
@@ -98,7 +99,7 @@ function Landing() {
         type={isPasswordVisible ? 'text' : 'password'}
         value={Password}
         onChange={(e)=>setPassword(e.target.value)}
-        className="block border-b border-gray-400 w-full px-[25px] py-2 text-[10px] text-gray-500 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        className="block border-b border-gray-400 w-full  sm:w-[320px] px-[25px] py-2 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         placeholder="Password"
       />
       <div
@@ -109,8 +110,8 @@ function Landing() {
       </div>
     </div>
 
-       <Link onClick={HandleLogin} className="transition-colors duration-500 hover:bg-white">
-       <div  className="text-center text-white bg-gradient-to-l from-blue-400 to-indigo-400 pt-1 mt-16    text-[11px] font-semibold rounded cursor-pointer     w-52 h-7 ">
+       <Link onClick={HandleLogin} className="transition-colors flex justify-center w-full duration-500 hover:bg-white">
+       <div  className="text-center  text-white bg-gradient-to-l from-blue-400 to-indigo-400 pt-1 mt-16    text-[15.5px] font-bold rounded cursor-pointer     w-64 h-[35px] ">
        {isLoading ? <Spinner  />: 'Login'}
        </div>  
             </Link>
