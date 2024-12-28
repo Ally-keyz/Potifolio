@@ -20,10 +20,20 @@ function Render() {
 
     if (count === 0) {
         return (
-            <div className="flex items-center justify-center w-screen h-screen bg-gray-300">
+            <div className="flex items-center justify-center w-screen h-screen bg-gray-50">
+                <div className="">
                 <div className="flex flex-col items-center">
-                    <img src={render} alt="" className="w-[200px] h-[150px] mb-2" />
-                    <div className="ml-3 bouncing-ball"></div>
+                <div className="relative w-10 h-10 animate-spin">
+                    <div className="absolute inset-0  border-transparent rounded-full bg-gradient-to-r from-blue-300 to-indigo-400 mask border-4 mask:border-4">
+                        <div className="absolute inset-0 border-4 border-transparent rounded-full bg-white"></div>
+                    </div>
+
+                </div>
+                <div className="">
+                        <p className='text-[15px] text-blue-600 font-semibold'>MyStock</p>
+                    </div>
+                    </div>
+                    <div className=" ml-3 bouncing-ball"></div>
                 </div>
             </div>
         );

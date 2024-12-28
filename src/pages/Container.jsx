@@ -9,7 +9,7 @@ import icon3 from "../assets/i3.png";
 import icon4 from "../assets/i4.png";
 import icon5 from "../assets/i5.png";
 import icon6 from "../assets/i6.png";
-import user from "../assets/user1.png";
+import user from "../assets/person.png";
 
 
 
@@ -108,7 +108,7 @@ const closeModal2 = () => setModelOpen(false);
           </div>
           <nav className="flex-1 px-2 py-1 space-y-1">
             <NavLink
-              to="/Home"
+              to=""
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
                   isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-400 hover:bg-gray-200'
@@ -119,7 +119,7 @@ const closeModal2 = () => setModelOpen(false);
               <p>Dashboard</p>
             </NavLink>
             <NavLink
-              to="/Stock"
+              to="Stock"
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
                   isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
@@ -174,8 +174,9 @@ const closeModal2 = () => setModelOpen(false);
             <h1 className="text-[12px] hidden sm:block text-gray-300 font-semibold">{greeting}! </h1>
             </div>
           </div>
-          <div className="sm:mr-[300px]">
-            <img src={user} onClick={()=>setModelOpen(true)} className='w-10 cursor-pointer  h-10' alt="" />  
+          <div onClick={()=>setModelOpen(true)} className="sm:mr-[300px] cursor-pointer w-[200px] flex  rounded-full bg-gray-100">
+            <img src={user}  className='w-10   h-10' alt="" />  
+            <p className='text-[13px] font-semibold text-gray-600 mt-[10px] ml-10'>Store manager</p>
           </div>
           <button className="md:hidden text-blue-400" onClick={toggleSidebar}>
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}

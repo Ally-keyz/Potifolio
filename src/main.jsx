@@ -10,6 +10,7 @@ import './index.css'
 import React from 'react'
 import Content from './pages/Content.jsx'
 import Render from './pages/Render.jsx'
+import Stock from './pages/Stock.jsx'
 
 
 
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       
       <Route path="/Home" element={<Content />}>
         <Route path='' element={<Home />} />   
+        <Route path='Stock' element={<Stock />} />  
       </Route>
     </Route>
   )

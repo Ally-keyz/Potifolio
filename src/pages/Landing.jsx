@@ -85,7 +85,7 @@ function Landing() {
             <div className="">
         <div className="flex justify-center border-l border-b p-5 mt-20 bg-white border-blue-300  top-24  rounded-md shadow-xl w-full sm:w-[440px] h-[410px]  ">
             <div className="">
-            <div className=" mt-5 text-center mb-10 text-[17px] text-blue-400 font-serif">MyStock</div>
+            <div className=" mt-5 text-center mb-10 text-[17px] text-blue-500 font-bold">MyStock</div>
             
             <input
         type="text"
