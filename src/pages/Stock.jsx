@@ -14,6 +14,40 @@ function Stock() {
 
     const closeModal2 = () => setModelOpen(false);
 
+    //download report
+        const handleDownload = async () => {
+          try {
+            const response = await fetch("http://localhost:5000/stock/download", {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`, // Ensure the user is authenticated
+              },
+            });
+      
+            if (!response.ok) {
+              throw new Error("Failed to download stock report.");
+            }
+      
+            // Create a Blob from the response
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+      
+            // Create a link element to trigger the download
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "stocks_report.xlsx"); // File name
+            document.body.appendChild(link);
+            link.click();
+      
+            // Clean up
+            link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+          } catch (error) {
+            console.error("Error downloading the stock report:", error);
+            alert("There was an error downloading the report. Please try again.");
+          }
+        };
+
     // Fetch stock data with pagination
     const fetchStocks = async (page) => {
         try {
@@ -52,6 +86,8 @@ function Stock() {
         }
     };
 
+    
+
     return (
         <>
             <div className="flex justify-end sm:w-[970px] p-5 w-full">
@@ -60,7 +96,7 @@ function Stock() {
                         <p className='text-[12px] text-gray-600 mr-2 mt-1 font-semibold'>Register new stock</p>
                         <img src={img1} className='w-7 h-7' alt="Register" />
                     </div>
-                    <div className="cursor-pointer flex">
+                    <div onClick={handleDownload} className="cursor-pointer flex">
                         <p className='text-[12px] text-blue-500 mr-2 mt-1 font-semibold'>Download report</p>
                         <img src={img2} className='w-7 h-7' alt="Download" />
                     </div>
@@ -70,7 +106,7 @@ function Stock() {
             <div className="p-1">
     <div className="flex justify-center p-3">
         <p className='text-[16px] text-blue-500 font-bold'>
-            Stock <span className="text-gray-500">(2012)</span>
+            Stock <span className="text-gray-700 text-[12px]">(2012-{new Date().getFullYear()})</span>
         </p>
     </div>
 
@@ -94,7 +130,7 @@ function Stock() {
                     <div className="mt-2 flex rounded-md shadow-xl justify-center  w-full">
                         <table className="w-full  text-center text-[14px] text-gray-800 border-collapse">
                             <thead>
-                                <tr className="border-b bg-blue-300 text-white">
+                                <tr className="border-b bg-gray-300 font-extrabold text-[15px] text-white">
                                     <th className="py-3 px-5">Products</th>
                                     <th className="py-3 px-5">Entry Date</th>
                                     <th className="py-3 px-5">Truck</th>

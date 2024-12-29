@@ -108,7 +108,7 @@ const closeModal2 = () => setModelOpen(false);
           </div>
           <nav className="flex-1 px-2 py-1 space-y-1">
             <NavLink
-              to=""
+              to="Home"
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
                   isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-400 hover:bg-gray-200'
@@ -130,7 +130,7 @@ const closeModal2 = () => setModelOpen(false);
               <p>Stock</p>
             </NavLink>
             <NavLink
-              to="/Entery"
+              to="Entry"
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
                   isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'

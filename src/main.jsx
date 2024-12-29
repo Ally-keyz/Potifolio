@@ -11,6 +11,7 @@ import React from 'react'
 import Content from './pages/Content.jsx'
 import Render from './pages/Render.jsx'
 import Stock from './pages/Stock.jsx'
+import Entry from './pages/entry.jsx'
 
 
 
@@ -19,10 +20,11 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<LayOut />}>
       <Route path="/" element={<Render />} />
-      
       <Route path="/Home" element={<Content />}>
-        <Route path='' element={<Home />} />   
-        <Route path='Stock' element={<Stock />} />  
+        <Route path='' element={<Home />} />
+        <Route path='Home' element={<Home />} />   
+        <Route path='Stock' element={<Stock />} /> 
+        <Route path='Entry' element={<Entry />} />  
       </Route>
     </Route>
   )
