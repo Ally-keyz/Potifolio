@@ -24,31 +24,42 @@ const RegisterStockForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const { entryDate, truck, wBill, originDestination, product, entry, dispatched , unitPrice } = formData;
-
+  
+    const { entryDate, truck, wBill, originDestination, product, entry, dispatched, unitPrice } = formData;
+  
     // Input validation
     if (!product) {
       setError("Product name is required.");
       return;
     }
-
+  
     if (!entry && !dispatched) {
       setError("Specify either entry or dispatched quantity.");
       return;
     }
-
+  
     if (entry && dispatched) {
       setError("Only one of entry or dispatched can be specified.");
       return;
     }
-
+  
+    if (!unitPrice) {
+      setError("Unit price is required.");
+      return;
+    }
+  
+    const token = localStorage.getItem("ACCESS_TOKEN"); // Retrieve token from localStorage
+    if (!token) {
+      return alert("You are not authenticated. Please log in.");
+    }
+  
     try {
       // Make API call
-      const response = await fetch("/register", {
+      const response = await fetch("http://localhost:5000/stock/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           entryDate,
@@ -58,11 +69,12 @@ const RegisterStockForm = () => {
           product,
           entry: entry ? parseInt(entry, 10) : 0,
           dispatched: dispatched ? parseInt(dispatched, 10) : 0,
+          unitPrice: parseFloat(unitPrice), // Ensure the unitPrice is sent as a float
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         setSuccess("Stock operation recorded successfully.");
         setFormData({
@@ -73,6 +85,7 @@ const RegisterStockForm = () => {
           product: "",
           entry: "",
           dispatched: "",
+          unitPrice: "",
         });
       } else {
         setError(data.error || "An error occurred.");
@@ -81,6 +94,7 @@ const RegisterStockForm = () => {
       setError("Server error. Please try again later.");
     }
   };
+  
 
   return (
     <>
