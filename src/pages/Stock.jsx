@@ -62,6 +62,7 @@ function Stock() {
             setStockData(data.stocks || []); // Ensure it's always an array
             setTotalPages(data.totalPages);
             setCurrentPage(data.currentPage);
+            console.log(data.stocks)
         } catch (error) {
             console.error('Error fetching stocks:', error);
         } finally {
@@ -106,7 +107,7 @@ function Stock() {
             <div className="p-1">
     <div className="flex justify-center p-3">
         <p className='text-[16px] text-blue-500 font-bold'>
-            Stock <span className="text-gray-700 text-[12px]">(2012-{new Date().getFullYear()})</span>
+            Current stock 
         </p>
     </div>
 
@@ -114,12 +115,8 @@ function Stock() {
     <div className="w-full h-[350px] overflow-auto scrollbar-custom rounded-md border-gray-200 border shadow-md p-5 flex flex-col">
         {/* Loading indicator */}
         {loading ? (
-            <div className="flex justify-center items-center h-screen">
-                <div className="relative w-10 h-10 animate-spin">
-                    <div className="absolute inset-0  border-transparent rounded-full bg-gradient-to-r from-blue-300 to-indigo-400 mask border-4 mask:border-4">
-                        <div className="absolute inset-0 border-4 border-transparent rounded-full bg-white"></div>
-                    </div>
-                </div>
+            <div className="flex justify-center  items-center h-screen">
+                <div className="bouncing-ball"></div>
             </div>
         ) : (
             <>
@@ -127,10 +124,10 @@ function Stock() {
                 {stockData && stockData.length === 0 ? (
                     <p className="text-center text-gray-500">No stock data available</p>
                 ) : (
-                    <div className="mt-2 flex rounded-md shadow-xl justify-center  w-full">
-                        <table className="w-full  text-center text-[14px] text-gray-800 border-collapse">
+                    <div className="mt-2 flex rounded-md shadow-md justify-center  w-full">
+                        <table className="w-full  text-center text-[14px] text-gray-800 ">
                             <thead>
-                                <tr className="border-b bg-gray-300 font-extrabold text-[15px] text-white">
+                                <tr className="border-b bg-blue-400 font-extrabold text-[13px] text-white">
                                     <th className="py-3 px-5">Products</th>
                                     <th className="py-3 px-5">Entry Date</th>
                                     <th className="py-3 px-5">Truck</th>

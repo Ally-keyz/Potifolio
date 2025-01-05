@@ -5,13 +5,13 @@
 
   @layer utilities {
     .bouncing-ball {
-      @apply w-10 h-10 bg-gray-500 rounded-full relative;
+      @apply w-10 h-10 bg-gradient-to-r from-gray-50 to-black rounded-full relative;
       animation: bounce 2s infinite ease-in-out;
     }
   
     .bouncing-ball::after {
       content: '';
-      @apply w-10 h-[10px] bg-gray-500 rounded-full absolute;
+      @apply  rounded-full absolute;
       bottom: -5px;
       left: 0;
       transform: scaleX(1);

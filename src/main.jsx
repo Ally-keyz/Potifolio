@@ -12,6 +12,8 @@ import Content from './pages/Content.jsx'
 import Render from './pages/Render.jsx'
 import Stock from './pages/Stock.jsx'
 import Entry from './pages/entry.jsx'
+import Dispach from './pages/dispateched.jsx'
+import Report from './pages/report.jsx'
 
 
 
@@ -25,6 +27,8 @@ const router = createBrowserRouter(
         <Route path='Home' element={<Home />} />   
         <Route path='Stock' element={<Stock />} /> 
         <Route path='Entry' element={<Entry />} />  
+        <Route path='Dispatched' element={<Dispach />} /> 
+        <Route path='Report' element={<Report />} />  
       </Route>
     </Route>
   )

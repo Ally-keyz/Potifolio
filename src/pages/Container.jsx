@@ -57,6 +57,7 @@ const closeModal2 = () => setModelOpen(false);
       } catch (error) {
         console.error("Failed to fetch time:", error);
         setGreeting("Hello"); // Fallback greeting
+        console.log(time);
       }
     };
 
@@ -95,14 +96,13 @@ const closeModal2 = () => setModelOpen(false);
   };
 
   return (
-    <div className="flex  h-screen">
+    <div className="flex   h-screen">
       <div className="p-3">
-        <div className={`fixed z-20 h-full rounded-md bg-blue-100 shadow-sm text-white flex flex-col pt-10 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-[200px]'} md:relative md:translate-x-0 w-[200px]`}>
+        <div className={`fixed z-20 h-full rounded-md bg-blue-200 shadow-sm text-white flex flex-col pt-10 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-[200px]'} md:relative md:translate-x-0 w-[200px]`}>
           <div className="flex justify-center font-bold text-[18px]">
-            <div className="w-[10000px] flex text-black text-[13px] h-[60px] rounded-t-md bg-blue-100 relative top-[-40px]">
-              <div className="ml-10 mt-3 flex">
-                <img src={log} alt="" className="w-7 h-7 mr-1" />
-                <p className="mt-1">MyStock</p>
+            <div className="w-[10000px] flex text-black text-[13px] h-[80px] rounded-t-md bg-blue-200 relative top-[-40px]">
+              <div className=" mb-10 ml-3 justify-center flex">
+                <img src={log} alt="" className="w-[155px] h-[155px] mr-1" />
               </div>
             </div>
           </div>
@@ -111,7 +111,7 @@ const closeModal2 = () => setModelOpen(false);
               to="Home"
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
-                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-400 hover:bg-gray-200'
+                  isActive ? 'text-blue-400 bg-blue-300' : 'text-gray-400 hover:bg-gray-200'
                 }`
               }
             >
@@ -122,7 +122,7 @@ const closeModal2 = () => setModelOpen(false);
               to="Stock"
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
-                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
+                  isActive ? 'text-blue-400 bg-blue-300' : 'text-gray-500 hover:bg-gray-200'
                 }`
               }
             >
@@ -133,7 +133,7 @@ const closeModal2 = () => setModelOpen(false);
               to="Entry"
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
-                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
+                  isActive ? 'text-blue-400 bg-blue-300' : 'text-gray-500 hover:bg-gray-200'
                 }`
               }
             >
@@ -141,10 +141,10 @@ const closeModal2 = () => setModelOpen(false);
               <p>Entery</p>
             </NavLink>
             <NavLink
-              to="/Dispached"
+              to="Dispatched"
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
-                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
+                  isActive ? 'text-blue-400 bg-blue-300' : 'text-gray-500 hover:bg-gray-200'
                 }`
               }
             >
@@ -152,10 +152,10 @@ const closeModal2 = () => setModelOpen(false);
               <p>Dispatch</p>
             </NavLink>
             <NavLink
-              to="/Report"
+              to="Report"
               className={({ isActive }) =>
                 `flex button text-[9px] items-center px-2 py-2 text-sm font-semibold rounded transition-colors duration-700 ${
-                  isActive ? 'text-blue-400 bg-blue-200' : 'text-gray-500 hover:bg-gray-200'
+                  isActive ? 'text-blue-400 bg-blue-300' : 'text-gray-500 hover:bg-gray-200'
                 }`
               }
             >
@@ -171,7 +171,7 @@ const closeModal2 = () => setModelOpen(false);
           <div>
             <div className="">
             <h2 className="hidden sm:block text-[16px] text-gray-600 font-bold">Welcome <span className='text-blue-500'>{users.name}</span></h2>
-            <h1 className="text-[12px] hidden sm:block text-gray-300 font-semibold">{greeting}! </h1>
+            <h1 className="text-[12px] hidden sm:block text-gray-300 font-semibold">{greeting}! {time} </h1>
             </div>
           </div>
           <div onClick={()=>setModelOpen(true)} className="sm:mr-[300px] cursor-pointer w-[200px] flex  rounded-full bg-gray-100">

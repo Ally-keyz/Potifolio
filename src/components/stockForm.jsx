@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import icon1 from "../assets/edit.png"
+import Notification from "./Notification";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 import { FaCalendarAlt, FaTruck, FaBarcode, FaMapMarkedAlt, FaProductHunt, FaPlusCircle, FaSignOutAlt } from 'react-icons/fa';
 
 const RegisterStockForm = () => {
@@ -15,42 +19,68 @@ const RegisterStockForm = () => {
   });
 
   const [error, setError] = useState("");
+  const [color,setColor] = useState("bg-red-500")
   const [success, setSuccess] = useState("");
+  const [loading ,setLoading] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+
+  const triggerNotification = (message,color) => {
+    setNotificationMessage(message);
+    setShowNotification(true);
+    setColor(color)
+};
+
+const handleNotificationClose = () => {
+    setShowNotification(false);
+};
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   };
 
+  const handleDateChange = (date) => {
+    const formattedDate = format(date, "dd/MM/yyyy"); // Format as DD/MM/YYYY
+    setFormData({ ...formData, entryDate: formattedDate });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
   
     const { entryDate, truck, wBill, originDestination, product, entry, dispatched, unitPrice } = formData;
   
     // Input validation
     if (!product) {
-      setError("Product name is required.");
+      triggerNotification("Product required","bg-red-500")
+      setLoading(false)
       return;
     }
   
     if (!entry && !dispatched) {
-      setError("Specify either entry or dispatched quantity.");
+      triggerNotification("Specify either entry or dispatched quantity.","bg-red-500")
+      setLoading(false)
       return;
     }
   
     if (entry && dispatched) {
-      setError("Only one of entry or dispatched can be specified.");
+      triggerNotification("Only one of entry or dispatched can be specified.","bg-red-500")
+      setLoading(false)
       return;
     }
   
     if (!unitPrice) {
       setError("Unit price is required.");
+      triggerNotification("Unit price is required.","bg-red-500")
+      setLoading(false)
       return;
     }
   
     const token = localStorage.getItem("ACCESS_TOKEN"); // Retrieve token from localStorage
     if (!token) {
-      return alert("You are not authenticated. Please log in.");
+        setLoading(false)
+      return triggerNotification("Token has expired","bg-red-500");
     }
   
     try {
@@ -76,7 +106,7 @@ const RegisterStockForm = () => {
       const data = await response.json();
   
       if (response.ok) {
-        setSuccess("Stock operation recorded successfully.");
+        triggerNotification("Stock registered successfully","bg-green-500")
         setFormData({
           entryDate: "",
           truck: "",
@@ -88,39 +118,43 @@ const RegisterStockForm = () => {
           unitPrice: "",
         });
       } else {
-        setError(data.error || "An error occurred.");
+        triggerNotification(data.error || "An error occurred.","bg-red-500")
       }
     } catch (err) {
-      setError("Server error. Please try again later.");
+      triggerNotification("Server error. Please try again later.","bg-red-500")
+      console.log(err.message)
+    }finally{
+        setLoading(false);
     }
   };
   
 
   return (
     <>
-            <div  className="flex justify-center ">
-                 <p className='text-[13px] text-blue-500 mr-2 mt-1 font-semibold'>Register stock entry</p>
+            <div  className="flex justify-center">
+                 <p className='text-[15px] text-blue-500 mr-2 mt-1 font-semibold'>Register stock</p>
                 <img onClick={()=>setModelOpen(true)} src={icon1} className='w-7 h-7' alt="Register" />
                 </div>
-      <div className="p-5 mr-5">
-        {error && <div className="mb-4 p-3 text-red-700 bg-red-100 rounded">{error}</div>}
-        {success && <div className="mb-4 p-3 text-green-700 bg-green-100 rounded">{success}</div>}
+      <div className="p-5 mr-5 ">
         <div className="">
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="ml-20 flex items-center">
-                <FaCalendarAlt className="mr-2 text-gray-600" />
-                <label className="block font-medium text-[12px] text-gray-800">
-                  Entry Date <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="date"
-                  name="entryDate"
-                  value={formData.entryDate}
-                  onChange={handleChange}
-                  className="block border-b border-gray-400 w-full sm:w-[370px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className=" ml-20 flex items-center">
+            <FaCalendarAlt className="mr-2 text-gray-600" />
+            <label className="block font-medium mb-1 text-[12px] text-gray-800">
+              Entry Date <span className="text-red-500">*</span>
+            </label>
+            <DatePicker
+              selected={
+                formData.entryDate
+                  ? new Date(formData.entryDate.split("/").reverse().join("-"))
+                  : null
+              }
+              onChange={handleDateChange}
+              dateFormat="dd/MM/yyyy"
+              className="block border-b mb-7 border-gray-300 w-[300px] px-3 py-2 text-[12px] font-semibold text-gray-900 rounded-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+            />
+          </div>
               <div className="ml-20 flex items-center">
                 <FaTruck className="mr-2 text-gray-600" />
                 <label className="block font-medium mb-1 text-[12px] text-gray-800">
@@ -132,7 +166,7 @@ const RegisterStockForm = () => {
                   value={formData.truck}
                   onChange={handleChange}
                   placeholder="Truck"
-                  className="block border-b border-gray-400 w-full sm:w-[370px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block border-b mb-7 border-gray-300 w-full px-3 py-2 text-[12px] font-semibold text-gray-900 rounded-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 />
               </div>
               <div className="ml-20 flex items-center">
@@ -146,7 +180,7 @@ const RegisterStockForm = () => {
                   value={formData.wBill}
                   onChange={handleChange}
                   placeholder="Waybill Number"
-                  className="block border-b border-gray-400 w-full sm:w-[370px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block border-b mb-7 border-gray-300 w-full px-3 py-2 text-[12px] font-semibold text-gray-900 rounded-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 />
               </div>
               <div className="ml-20 flex items-center">
@@ -160,7 +194,7 @@ const RegisterStockForm = () => {
                   value={formData.originDestination}
                   onChange={handleChange}
                   placeholder="Origin or Destination"
-                  className="block border-b border-gray-400 w-full sm:w-[370px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block mb-7 border-b border-gray-300 w-full px-3 py-2 text-[12px] font-semibold text-gray-900 rounded-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 />
               </div>
               <div className="ml-20 flex items-center">
@@ -174,7 +208,7 @@ const RegisterStockForm = () => {
                   value={formData.product}
                   onChange={handleChange}
                   placeholder="Product Name"
-                  className="block border-b border-gray-400 w-full sm:w-[370px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block border-b mb-7 border-gray-300 w-full px-3 py-2 text-[12px] font-semibold text-gray-900 rounded-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 />
               </div>
               <div className="ml-20 flex items-center">
@@ -188,21 +222,7 @@ const RegisterStockForm = () => {
                   value={formData.entry}
                   onChange={handleChange}
                   placeholder="Entry Quantity"
-                  className="block border-b border-gray-400 w-full sm:w-[370px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-              <div className="ml-20 flex items-center">
-                <FaSignOutAlt className="mr-2 text-gray-600" />
-                <label className="block font-medium mb-1 text-[12px] text-gray-800">
-                  Dispatched Quantity <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="number"
-                  name="dispatched"
-                  value={formData.dispatched}
-                  onChange={handleChange}
-                  placeholder="Dispatched Quantity"
-                  className="block border-b border-gray-400 w-full sm:w-[370px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block border-b mb-7 border-gray-300 w-full px-3 py-2 text-[12px] font-semibold text-gray-800 rounded-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 />
               </div>
               <div className="ml-20 flex items-center">
@@ -216,14 +236,14 @@ const RegisterStockForm = () => {
                   value={formData.unitPrice}
                   onChange={handleChange}
                   placeholder="Unity price"
-                  className="block border-b border-gray-400 w-full sm:w-[370px] px-[25px] py-2 mb-8 text-[13px] text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block border-b mb-7 border-gray-300 w-full px-3 py-2 text-[12px] font-semibold text-gray-900 rounded-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 />
               </div>
             </div>
-            <div className="p-10 mt-5 flex justify-center">
+            <div className="p-10 mt-5 sm:ml-10 flex justify-center ">
               <button
                 type="submit"
-                className="text-center text-white bg-gradient-to-l from-blue-500 to-indigo-500 text-[13px] font-semibold rounded cursor-pointer w-[400px] h-[35px]"
+                className="text-center text-white bg-blue-400  text-[13px] font-semibold rounded cursor-pointer w-[350px] h-[35px]"
               >
                 Register
               </button>
@@ -231,6 +251,15 @@ const RegisterStockForm = () => {
           </form>
         </div>
       </div>
+                          {/* Notification */}
+                          {showNotification && (
+                <Notification
+                    message={notificationMessage}
+                    color={color}
+                    duration={5000}  // Optional custom duration
+                    onClose={handleNotificationClose}
+                />
+            )}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import close from '../assets/closeB.png'
 
-const Notification = ({ message, duration = 7000, onClose }) => {
+const Notification = ({ message, duration = 7000, onClose , color }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Notification = ({ message, duration = 7000, onClose }) => {
 
   return (
     <div
-      className={`fixed top-32 z-10 right-5 w-80 p-4 bg-red-400 text-white shadow-lg rounded-lg flex justify-between items-center transition-transform duration-500 ease-in-out ${
+      className={`fixed top-32 z-10 right-5 w-80 p-4 ${color} text-white shadow-lg rounded-lg flex justify-between items-center transition-transform duration-500 ease-in-out ${
         show ? 'translate-x-0' : 'translate-x-96'
       }`}
     >
