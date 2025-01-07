@@ -73,7 +73,7 @@ function Landing() {
 
     return (
         <>
-            <div className='sm:h-[585px] h-screen w-full flex sm:p-5 justify-center items-center'>
+            <div className='sm:h-[585px] h-screen w-full flex sm:p-5 bg-blue-900 justify-center items-center'>
                 {/* Notification */}
                 {showNotification && (
                     <Notification
@@ -85,7 +85,7 @@ function Landing() {
                 )}
                 <div className="flex flex-col sm:flex-row justify-center items-center w-full">
                     {/* Video Section */}
-                    <div className="hidden sm:block sm:w-[300px] relative shadow-sm h-[410px] mt-5">
+                    <div className="hidden sm:block sm:w-[300px] relative shadow-lg h-[410px] mt-5">
                         <video
                             src={vid}
                             autoPlay
@@ -103,7 +103,7 @@ function Landing() {
                     </div>
 
                     {/* Login Form */}
-                    <div className="flex justify-center  shadow-sm mt-5 bg-zinc-100  rounded-r-md w-full sm:w-[440px] h-[410px]">
+                    <div className="flex justify-center  shadow-lg mt-5 bg-white  rounded-r-md w-full sm:w-[440px] h-[410px]">
                         <div className="">
                             <div className="flex justify-center">
                                 <img src={render} alt="" className="w-[150px] mr-1" />
@@ -113,7 +113,7 @@ function Landing() {
                                 type="text"
                                 value={nameMail}
                                 onChange={(e) => setNameMail(e.target.value)}
-                                className="block border-b bg-zinc-100 border-blue-500 w-full sm:w-[320px] px-[25px] py-2 mb-8 text-[14px] text-black font-semibold shadow-sm rounded-sm focus:outline-none focus:ring-black focus:border-black"
+                                className="block border-b-2 bg-white border-blue-500 w-full sm:w-[320px] px-[25px] py-2 mb-8 text-[14px] text-gray-600 font-semibold shadow-sm rounded-sm focus:outline-none focus:ring-blue-800 focus:border-blue-800"
                                 placeholder="Email or name"
                             />
                             <div className="relative w-full">
@@ -121,7 +121,7 @@ function Landing() {
                                     type={isPasswordVisible ? 'text' : 'password'}
                                     value={Password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="block border-b bg-zinc-100 border-blue-500 w-full sm:w-[320px] px-[25px] py-2 text-[14px] font-semibold text-black shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-black focus:border-black"
+                                    className="block border-b-2 bg-white border-blue-500 w-full sm:w-[320px] px-[25px] py-2 text-[14px] font-semibold text-gray-600 shadow-sm rounded-sm mt-2 focus:outline-none focus:ring-blue-800 focus:border-blue-800"
                                     placeholder="Password"
                                 />
                                 <div

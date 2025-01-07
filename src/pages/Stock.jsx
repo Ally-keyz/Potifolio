@@ -112,7 +112,7 @@ function Stock() {
     </div>
 
     {/* Table Section */}
-    <div className="w-full h-[350px] overflow-auto scrollbar-custom rounded-md border-gray-200 border shadow-md p-5 flex flex-col">
+    <div className="w-full h-[350px] overflow-auto scrollbar-custom border-gray-200 border shadow-md p-5 flex flex-col">
         {/* Loading indicator */}
         {loading ? (
             <div className="flex justify-center  items-center h-screen">
@@ -124,7 +124,7 @@ function Stock() {
                 {stockData && stockData.length === 0 ? (
                     <p className="text-center text-gray-500">No stock data available</p>
                 ) : (
-                    <div className="mt-2 flex rounded-md shadow-md justify-center  w-full">
+                    <div className="w-full scrollbar-custom overflow-auto rounded-t-md">
                         <table className="w-full  text-center text-[14px] text-gray-800 ">
                             <thead>
                                 <tr className="border-b bg-blue-400 font-extrabold text-[13px] text-white">

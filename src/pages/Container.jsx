@@ -167,7 +167,7 @@ const closeModal2 = () => setModelOpen(false);
         </div>
       </div>
       <div className="flex-1 flex flex-col">
-        <header className="p-2 mt-4 fixed w-full z-50 flex sm:justify-between justify-around">
+        <header className="p-2 fixed w-full z-50 flex sm:justify-between justify-around">
           <div>
             <div className="">
             <h2 className="hidden sm:block text-[16px] text-gray-600 font-bold">Welcome <span className='text-blue-500'>{users.name}</span></h2>
