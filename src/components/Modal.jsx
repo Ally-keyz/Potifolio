@@ -12,10 +12,10 @@ const Modal = ({ isOpen, onClose, children }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50"
+      className="fixed inset-0 transition-all duration-500 hover:scale-105 scale-100 bg-black bg-opacity-70 flex justify-center items-center z-50"
       onClick={handleBackdropClick}
     >
-      <div className=" flex justify-center shadow-lg">
+      <div className=" flex justify-center transition-all duration-500 hover:scale-110 scale-100 shadow-lg">
         {children}
       </div>
     </div>

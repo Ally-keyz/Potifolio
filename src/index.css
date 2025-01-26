@@ -2,40 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .exploding-ball {
+    @apply w-10 h-10 bg-gradient-to-r from-black to-zinc-900 rounded-full relative;
+    animation: expand 2s infinite ease-in-out;
+  }
 
-  @layer utilities {
-    .bouncing-ball {
-      @apply w-10 h-10 bg-gradient-to-r from-gray-50 to-black rounded-full relative;
-      animation: bounce 2s infinite ease-in-out;
+  @keyframes expand {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
     }
-  
-    .bouncing-ball::after {
-      content: '';
-      @apply  rounded-full absolute;
-      bottom: -5px;
-      left: 0;
-      transform: scaleX(1);
-      animation: squish 2s infinite ease-in-out;
-    }
-  
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-        animation-timing-function: ease-in;
-      }
-      50% {
-        transform: translateY(150px);
-        animation-timing-function: ease-out;
-      }
-    }
-  
-    @keyframes squish {
-      0%, 100% {
-        transform: scaleX(1);
-      }
-      50% {
-        transform: scaleX(1.5);
-      }
+    50% {
+      transform: scale(10);
+      opacity: 0.5;
     }
   }
-    
+}
+
+@layer utilities {
+  .text-stroke {
+      -webkit-text-stroke: 0.5px rgb(193, 244, 193); /* Adjust the stroke width and color here */
+      color: transparent;
+  }
+}

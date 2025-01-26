@@ -85,7 +85,7 @@ const handleNotificationClose = () => {
   
     try {
       // Make API call
-      const response = await fetch("http://localhost:5000/stock/register", {
+      const response = await fetch("https://stock-managment-2.onrender.com/stock/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ const handleNotificationClose = () => {
                  <p className='text-[15px] text-blue-500 mr-2 mt-1 font-semibold'>Register stock</p>
                 <img onClick={()=>setModelOpen(true)} src={icon1} className='w-7 h-7' alt="Register" />
                 </div>
-      <div className="p-5 mr-5 ">
+      <div className="p-5 mr-5  ">
         <div className="">
           <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -243,7 +243,7 @@ const handleNotificationClose = () => {
             <div className="p-10 mt-5 sm:ml-10 flex justify-center ">
               <button
                 type="submit"
-                className="text-center text-white bg-blue-400  text-[13px] font-semibold rounded cursor-pointer w-[350px] h-[35px]"
+                className="text-center text-white bg-blue-500  text-[13px] font-semibold rounded-md cursor-pointer w-[450px] h-[35px]"
               >
                 Register
               </button>

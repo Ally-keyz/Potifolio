@@ -14,6 +14,8 @@ import Stock from './pages/Stock.jsx'
 import Entry from './pages/entry.jsx'
 import Dispach from './pages/dispateched.jsx'
 import Report from './pages/report.jsx'
+import ProjectLibrary from './pages/projects.jsx'
+import ContactUs from './pages/contact.jsx'
 
 
 
@@ -22,14 +24,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<LayOut />}>
       <Route path="/" element={<Render />} />
-      <Route path="/Home" element={<Content />}>
-        <Route path='' element={<Home />} />
-        <Route path='Home' element={<Home />} />   
-        <Route path='Stock' element={<Stock />} /> 
-        <Route path='Entry' element={<Entry />} />  
-        <Route path='Dispatched' element={<Dispach />} /> 
-        <Route path='Report' element={<Report />} />  
-      </Route>
+      <Route path="/Projects" element={<ProjectLibrary />} />
+      <Route path="/Contact" element={<ContactUs />} />
     </Route>
   )
 );

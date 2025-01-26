@@ -17,7 +17,7 @@ function Stock() {
     //download report
         const handleDownload = async () => {
           try {
-            const response = await fetch("http://localhost:5000/stock/download", {
+            const response = await fetch("https://stock-managment-2.onrender.com/stock/download", {
               method: "GET",
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`, // Ensure the user is authenticated
@@ -52,7 +52,7 @@ function Stock() {
     const fetchStocks = async (page) => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:5000/stock/myStock?page=${page}&limits=10`, {
+            const response = await fetch(`https://stock-managment-2.onrender.com/stock/myStock?page=${page}&limits=10`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`, // Assuming you use JWT for auth
@@ -115,8 +115,8 @@ function Stock() {
     <div className="w-full h-[350px] overflow-auto scrollbar-custom border-gray-200 border shadow-md p-5 flex flex-col">
         {/* Loading indicator */}
         {loading ? (
-            <div className="flex justify-center  items-center h-screen">
-                <div className="bouncing-ball"></div>
+            <div className="flex justify-center p-[100px] h-screen">
+                <div className="tex-[14px] font-semibold text-gray-500">Loading...</div>
             </div>
         ) : (
             <>
@@ -143,13 +143,13 @@ function Stock() {
                                         key={index}
                                         className={`border-t border-gray-300 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100`}
                                     >
-                                        <td className="py-3 text-[12px] font-semibold text-gray-800 px-5">{item.product === "Unknown" ? "Beans" : item.product}</td>
-                                        <td className="py-3 text-[12px] font-semibold text-gray-800 px-5">{item.entryDate}</td>
-                                        <td className="py-3 text-[12px] font-semibold text-gray-800 px-5">{item.truck}</td>
-                                        <td className="py-3 text-[12px] font-semibold text-gray-800 px-5">{item.originDestination}</td>
-                                        <td className="py-3 text-[12px] font-semibold text-gray-800 px-5">{item.entry}</td>
-                                        <td className="py-3 text-[12px] font-semibold text-gray-800 px-5">{item.dispatched}</td>
-                                        <td className="py-3 text-[12px] font-semibold text-gray-800 px-5">{item.balance}</td>
+                                        <td className="py-3 text-[12px] font-semibold text-green-800 px-5">{item.product === "Unknown" ? "Beans" : item.product}</td>
+                                        <td className="py-3 text-[12px] font-semibold text-yellow-800 px-5">{item.entryDate}</td>
+                                        <td className="py-3 text-[12px] font-semibold text-orange-500 px-5">{item.truck}</td>
+                                        <td className="py-3 text-[12px] font-semibold text-blue-800 px-5">{item.originDestination}</td>
+                                        <td className="py-3 text-[12px] font-semibold text-gray-950 px-5">{item.entry}</td>
+                                        <td className="py-3 text-[12px] font-semibold text-gray-950 px-5">{item.dispatched}</td>
+                                        <td className="py-3 text-[12px] font-semibold text-red-600 px-5">{item.balance}</td>
                                     </tr>
                                 ))}
                             </tbody>

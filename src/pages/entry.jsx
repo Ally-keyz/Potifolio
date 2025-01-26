@@ -29,7 +29,7 @@ function Entry() {
     const fetchStocks = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/stock/inGoing", {
+        const response = await fetch("https://stock-managment-2.onrender.com/stock/inGoing", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -57,7 +57,7 @@ function Entry() {
     <div>
       <div className="p-5 sm:w-[970px] w-full flex justify-end">
         <div className="flex justify-evenly">
-          <div onClick={()=>navigate("Home/Report")} className="cursor-pointer flex">
+          <div onClick={()=> navigate("/Home/Report")} className="cursor-pointer flex">
             <p className="text-[12px] text-gray-700 mr-2 mt-1 font-semibold">
               Go to reports
             </p>
@@ -73,21 +73,26 @@ function Entry() {
         </div>
       </div>
 
-      <div className="w-full bg-white h-[650px] overflow-auto scrollbar-custom rounded-md border-gray-200 border shadow-md p-5 flex flex-col">
+      <div className="w-full bg-white h-[650px] overflow-auto scrollbar-custom rounded-md border-gray-200 border  p-5 flex flex-col">
         <AdvancedStockForm />
       </div>
 
       <div className="mt-5">
         {loading ? (
-          <div className="flex justify-center items-center h-screen">
-            <div className="bouncing-ball"></div>
-          </div>
+            <div className="flex justify-center p-[100px] h-screen">
+            <div className="tex-[14px] font-semibold text-gray-500">Loading...</div>
+        </div>
         ) : error ? (
           <p className="text-center text-red-500">{error}</p>
         ) : stockData.length === 0 ? (
           <p className="text-center text-gray-500">No stock data available</p>
         ) : (
-          <div className="w-full scrollbar-custom h-[400px] overflow-auto rounded-t-md">
+          <div className="p-5 w-full overflow-auto scrollbar-custom h-[360px] shadow-md rounded-md">
+            <div className="p-2 flex justify-center">
+              <p className="text-blue-500 font-extrabold text-[15px]">Entry truck</p>
+
+            </div>
+          <div className="w-full shadow-lg scrollbar-custom h-full overflow-auto rounded-t-sm">
             <table className="w-full text-center text-[14px] text-gray-800">
               <thead>
                 <tr className="border-b bg-blue-400 font-extrabold text-[13px] text-white">
@@ -105,17 +110,17 @@ function Entry() {
                   stockData.map((item, index) => (
                     <tr
                       key={index}
-                      className={`border-t h-[40px] ${
+                      className={`border-t h-[40px]  ${
                         index % 2 === 0 ? "bg-gray-50" : "bg-white"
                       } hover:bg-gray-100`}
                     >
-                      <td>{item.entry === "Unknown" ? "Beans" : item.product}</td>
-                      <td>{formatDate(item.date)}</td>
-                      <td>{item.plaque}</td>
-                      <td>{item.destination}</td>
-                      <td>{item.value}</td>
-                      <td>{item.unitPrice}</td>
-                      <td>{item.solde}</td>
+                      <td className="text-yellow-700 font-semibold text-[12px]">{item.entry === "Unknown" ? "Beans" : item.entry}</td>
+                      <td className="text-green-700 font-semibold text-[12px]">{formatDate(item.date)}</td>
+                      <td className="text-gray-700 font-semibold text-[12px]">{item.plaque}</td>
+                      <td className="text-orange-500 font-semibold text-[12px]">{item.destination}</td>
+                      <td className="text-blue-700 font-semibold text-[12px]">{item.value}</td>
+                      <td className="text-gray-700 font-semibold text-[12px]">{item.unitPrice}</td>
+                      <td className="text-red-700 font-semibold text-[12px]">{item.solde}</td>
                     </tr>
                   ))
                 ) : (
@@ -124,8 +129,10 @@ function Entry() {
               </tbody>
             </table>
           </div>
+          </div>
         )}
       </div>
+      
     </div>
   );
 }

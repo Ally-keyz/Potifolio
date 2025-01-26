@@ -23,7 +23,7 @@ const Notification = ({ message, duration = 7000, onClose , color }) => {
         show ? 'translate-x-0' : 'translate-x-96'
       }`}
     >
-      <span className='text-[10px] font-semibold'>{message}</span>
+      <span className='text-[15px] text-white font-semibold'>{message}</span>
       <button
         onClick={() => {
           setShow(false);
