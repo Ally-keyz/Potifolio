@@ -7,6 +7,7 @@ import Modal from "../components/Modal";
 import Footer from "../components/footer";
 import { motion } from "framer-motion"; // Import framer-motion
 
+
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -77,7 +78,7 @@ const ContactUs = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-zinc-800 min-h-screen sm:p-24">
+      <div className="bg-zinc-800 min-h-screen rounded-t-lg sm:p-24">
         <div className="text-center mt-10 mb-10">
           <motion.h1
             className="text-[20px] font-bold text-green-300"

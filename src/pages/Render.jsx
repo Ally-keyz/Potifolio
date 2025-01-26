@@ -3,6 +3,7 @@ import { useNavigation } from 'react-router-dom';
 import render from "../assets/bg.jpg"; // Correct import for the background image
 import Landing from './Landing';
 import logo from "../assets/lo1.png"
+import log from "../assets/lo.png"
 
 function Render() {
     const [count, setCount] = useState(0);
@@ -29,13 +30,14 @@ function Render() {
                 <div className="relative z-10">
                     <div className="flex flex-col items-center">
                         <div>
-                        <p className="text-[24px] text-white mb-20 bg-gradient-to-r   bg-clip-text font-extrabold tracking-wide drop-shadow-lg">
-                        <img src={logo} className='w-40 h-32' />
-                         </p>
+        <p className="text-[20px] flex text-white  bg-gradient-to-r text-transparent bg-clip-text font-bold tracking-wide drop-shadow-lg">
+                  <img src={log} className='w-10 relative left-10 mt-[44px] h-10' />
+                  <img src={logo} className='w-32 mt-8 h-24' />
+          </p>
 
                         </div>
                     </div>
-                    <div className="ml-16 exploding-ball"></div>
+                    <div className="ml-20 exploding-ball"></div>
                 </div>
             </div>
         );

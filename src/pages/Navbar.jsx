@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from "../assets/lo1.png";
 import Modal from '../components/Modal';
+import log from "../assets/lo.png"
 
 
 
@@ -49,12 +50,13 @@ const Navbar = () => {
 
 
   return (
-    <nav className={`w-full fixed bg-transparent z-50 rounded-t-lg  ${scrolled ? 'shadow-sm transition-all duration-700 ease-in-out rounded-t-lg ' : ''}`}>
+    <nav className={`w-full fixed bg-transparent z-50 rounded-t-lg  ${scrolled ? ' transition-all duration-700 ease-in-out rounded-t-lg ' : ''}`}>
       <div className="flex items-center justify-around h-16 px-4">
         {/* Logo */}
         <div>
-        <p className="text-[20px] text-white  bg-gradient-to-r text-transparent bg-clip-text font-bold tracking-wide drop-shadow-lg">
-                      <img src={logo} className='w-32 mt-8 h-24' />
+        <p className="text-[20px] flex text-white  bg-gradient-to-r text-transparent bg-clip-text font-bold tracking-wide drop-shadow-lg">
+                  <img src={log} className='w-10 relative left-9 mt-[38px] h-10' />
+                  <img src={logo} className='w-28 mt-8 h-20' />
           </p>
         </div>
 
@@ -70,7 +72,7 @@ const Navbar = () => {
             Contact us
           </NavLink>
           <NavLink >
-            <button onClick={()=>setModelOpen(true)} className='w-[100px] h-[40px]  rounded-full bg-green-300 text-red-950 font-bold text-[14px] hover:bg-green-500'>Hire me</button>
+            <button onClick={()=>setModelOpen(true)} className='w-[100px] h-[40px] border-green-200  border rounded-full hover:text-zinc-800  text-white transition-all duration-500 font-semibold text-[14px] hover:bg-green-200'>Hire me</button>
           </NavLink>
         </div>
 
